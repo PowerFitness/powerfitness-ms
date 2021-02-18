@@ -9,6 +9,15 @@
       "plugin:@typescript-eslint/recommended"
     ],
     "rules": {
-      "@typescript-eslint/no-inferrable-types": "off"
+      "@typescript-eslint/no-inferrable-types": 0,
+      "@typescript-eslint/no-explicit-any": 2,
+      "@typescript-eslint/typedef":[
+        "error",
+        {
+          "arrowParameter": false,
+          "variableDeclaration": true,
+          "variableDeclarationIgnoreFunction": true
+        }
+      ]
     }
 }
