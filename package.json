@@ -25,7 +25,8 @@
   },
   "homepage": "https://github.com/PowerFitness/powerfitness-ms#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "pre-commit": "^1.2.2"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.12.16",
