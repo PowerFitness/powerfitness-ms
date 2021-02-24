@@ -11,7 +11,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged", 
+      "pre-commit": "lint-staged",
       "pre-push": "npm run lint"
     },
     "lint-staged": {
@@ -28,7 +28,7 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/PowerFitness/powerfitness-ms/issues" 
+    "url": "https://github.com/PowerFitness/powerfitness-ms/issues"
   },
   "homepage": "https://github.com/PowerFitness/powerfitness-ms#readme",
   "dependencies": {
@@ -42,6 +42,7 @@
     "@typescript-eslint/parser": "^4.15.1",
     "eslint": "^7.20.0",
     "husky": "^5.1.1",
+    "lint-staged": "^10.5.4",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.5"
   }
