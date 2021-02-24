@@ -9,18 +9,6 @@
     "local": "ts-node src/index.ts",
     "lint": "eslint src --ext .ts"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm run lint"
-    },
-    "lint-staged": {
-      "**/*.js": [
-        "eslint --fix",
-        "git add"
-      ]
-    }
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PowerFitness/powerfitness-ms.git"
@@ -41,8 +29,6 @@
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",
     "eslint": "^7.20.0",
-    "husky": "^5.1.1",
-    "lint-staged": "^10.5.4",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.5"
   }
