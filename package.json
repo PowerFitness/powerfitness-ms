@@ -11,8 +11,14 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "echo \"Error: no test specified\" && exit 1", 
+      "pre-commit": "lint-staged", 
       "pre-push": "npm run lint"
+    },
+    "lint-staged": {
+      "**/*.js": [
+        "eslint --fix",
+        "git add"
+      ]
     }
   },
   "repository": {
