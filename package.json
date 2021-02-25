@@ -16,9 +16,8 @@
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
-      "eslint --quiet"
-    ],
-    "*.ts": "eslint --cache --fix"
+      "eslint"
+    ]
   },
   "repository": {
     "type": "git",
