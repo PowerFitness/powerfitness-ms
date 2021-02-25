@@ -17,7 +17,8 @@
   "lint-staged": {
     "*.{js,ts,tsx}": [
       "eslint --quiet"
-    ]
+    ],
+    "*.ts": "eslint --cache --fix"
   },
   "repository": {
     "type": "git",
@@ -39,7 +40,7 @@
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",
     "eslint": "^7.20.0",
-    "husky": "^5.1.1",
+    "husky": "^4.3.8",
     "lint-staged": "^10.5.4",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.5"
