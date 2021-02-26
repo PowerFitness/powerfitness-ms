@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "local": "ts-node src/index.ts",
-    "lint": "eslint src --ext .ts",
+    "lint": "eslint src --ext .ts --fix",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts'"
   },
   "husky": {
@@ -18,7 +18,7 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "npm run prettier-format",
-      "eslint --fix"
+      "npm run lint"
     ]
   },
   "repository": {
