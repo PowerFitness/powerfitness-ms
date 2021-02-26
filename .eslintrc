@@ -17,7 +17,8 @@
           "arrowParameter": false,
           "variableDeclaration": true,
           "variableDeclarationIgnoreFunction": true,
-          "skipBlankLines": false
+          "skipBlankLines": false,
+          "ignoreComments": false
         }
       ]
     }
