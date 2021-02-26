@@ -16,8 +16,10 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "npm run prettier-format", "eslint"
+    "*.{js,jsx,ts,tsx}": [
+      "npx prettier --write",
+      "npm run prettier-format",
+      "eslint"
     ]
   },
   "repository": {
@@ -43,6 +45,7 @@
     "husky": "^4.3.8",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
+    "prettier-eslint": "^12.0.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.5"
   }
