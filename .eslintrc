@@ -9,7 +9,6 @@
       "plugin:@typescript-eslint/recommended"
     ],
     "rules": {
-      "no-trailing-spaces": 2,
       "@typescript-eslint/no-inferrable-types": 0,
       "@typescript-eslint/no-explicit-any": 2,
       "@typescript-eslint/typedef":[
@@ -21,6 +20,25 @@
           "skipBlankLines": false,
           "ignoreComments": false
         }
-      ]
+      ],
+      "no-trailing-spaces": 2,
+      "no-unexpected-multiline": 2,
+      "no-unreachable": 2,
+      "array-bracket-spacing": [ 1, "always" ],
+      "block-spacing": [ 2, "always" ],
+      "brace-style": [ 2, "1tbs", { "allowSingleLine": false } ],
+      "comma-spacing": [ 2, { "before": false, "after": true } ],
+      "comma-style": [ 2, "last" ],
+      "eol-last": 2,
+      "indent": [ 1, 2 ],
+      "max-depth": [ 1, 8 ],
+      "max-len": [ 1, 132 ],
+      "max-nested-callbacks": [ 1, 8 ],
+      "no-mixed-spaces-and-tabs": 2,
+      "no-multiple-empty-lines": 2,
+      "no-unneeded-ternary": 2,
+      "object-curly-spacing": [ 1, "always" ],
+      "padded-blocks": [ 1, "never" ],
+      "quotes": [ 1, "single" ]
     }
 }
