@@ -16,7 +16,8 @@
         {
           "arrowParameter": false,
           "variableDeclaration": true,
-          "variableDeclarationIgnoreFunction": true
+          "variableDeclarationIgnoreFunction": true,
+          "skipBlankLines": false
         }
       ]
     }
