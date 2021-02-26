@@ -18,7 +18,7 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "npm run prettier-format",
-      "eslint"
+      "eslint --fix"
     ]
   },
   "repository": {
