@@ -13,17 +13,3 @@ app.listen(port, () => {
       app listenExample app listening at http://localhost:${port}`
   );
 });
-
-const x: string = '3';
-const y: string = '4';
-
-console.log('hello world', x + y);
-
-const someFunction = (x: string) => {
-  console.log(
-    'dafafafafaffafafafafafafafafafafafafafafafafafafafafafxdafafafafaffafafafafafafafafafafafafafafafafafafafafafxdafafafafaffafafafafafafafafafafafafafafafafafafafafafx',
-    x
-  );
-};
-
-console.log(someFunction('hello'));
