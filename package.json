@@ -4,10 +4,11 @@
   "description": "PowerFitness service",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage",
     "build": "tsc",
     "local": "nodemon",
-    "lint": "eslint src --ext .ts"
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix"
   },
   "husky": {
     "hooks": {
@@ -30,16 +31,20 @@
   },
   "homepage": "https://github.com/PowerFitness/powerfitness-ms#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.12.16",
     "@babel/preset-typescript": "^7.12.16",
     "@types/express": "^4.17.11",
+    "@types/jest": "^26.0.20",
+    "@types/mysql": "^2.15.17",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",
     "eslint": "^7.20.0",
     "husky": "^4.3.8",
+    "jest": "^26.6.3",
     "lint-staged": "^10.5.4",
     "nodemon": "^2.0.7",
     "ts-node": "^9.1.1",
