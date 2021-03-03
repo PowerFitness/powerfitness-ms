@@ -16,16 +16,16 @@ interface PlansWhereMap { id?: number; userUniqueId?: string; }
 export class GetPlansByQuery extends ReadAction {
     queryParams: ParsedQs;
     constructor(dbConfig: DbConfig, queryParams: ParsedQs) {
-        super(dbConfig);
-        this.queryParams = queryParams;
+      super(dbConfig);
+      this.queryParams = queryParams;
     }
     buildQuery(): string {
-        const { id, userUniqueId } = this.queryParams;
-        const whereMap: PlansWhereMap = {
-            id,
-            userUniqueId
-        } as PlansWhereMap;
-        return `select * from plans where ${buildWhereConditions(whereMap)}`
+      const { id, userUniqueId } = this.queryParams;
+      const whereMap: PlansWhereMap = {
+        id,
+        userUniqueId
+      } as PlansWhereMap;
+      return `select * from plans where ${buildWhereConditions(whereMap)}`
     }
 }
 

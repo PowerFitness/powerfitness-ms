@@ -11,12 +11,12 @@ export interface Config {
     dbConfig: DbConfig
 }
 export const config = (): Config => ({
-    dbConfig: {
-        host: '',
-        port: 0,
-        user: '',
-        password: '',
-        database: '',
-        ssl: ''
-    }
+  dbConfig: {
+    host: '',
+    port: 0,
+    user: '',
+    password: '',
+    database: '',
+    ssl: ''
+  }
 });
