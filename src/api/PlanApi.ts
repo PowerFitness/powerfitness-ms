@@ -14,7 +14,7 @@ export class PlanApi {
     async getPlan(req: Request, res: Response, next: NextFunction): Promise<void> {
       try {
         const query: ParsedQs = req.query;
-        const plan: Plan = await new GetPlansByQuery(config().dbConfig, query).execute() as unknown as Plan;
+        const plan: Plan = (await new GetPlansByQuery(config().dbConfig, query).execute())[0];
         res.send(plan)
       } catch (e) {
         console.log(e.message)
