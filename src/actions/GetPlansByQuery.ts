@@ -1,4 +1,4 @@
-import { ReadAction } from '../abstraction/ReadAction';
+import { Action } from '../abstraction/Action';
 import { buildWhereConditions } from '../util/buildWhereConditions';
 import { ParsedQs } from 'qs';
 import { DbConfig } from '../config'
@@ -13,7 +13,7 @@ export interface Plan {
 
 interface PlansWhereMap { id?: number; userUniqueId?: string; }
 
-export class GetPlansByQuery extends ReadAction {
+export class GetPlansByQuery extends Action<Array<Plan>> {
     queryParams: ParsedQs;
     constructor(dbConfig: DbConfig, queryParams: ParsedQs) {
       super(dbConfig);
