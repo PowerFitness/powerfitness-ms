@@ -17,7 +17,7 @@ export class ResultsApi {
         const results: Array<Result> = await new GetResultsByQuery(config().dbConfig, query).execute();
         res.send(results)
       } catch (e) {
-        console.log(e.message)
+        console.error(e.message)
       }
     }
 }
