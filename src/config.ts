@@ -12,11 +12,10 @@ export interface Config {
 }
 export const config = (): Config => ({
   dbConfig: {
-    host: '',
-    port: 0,
-    user: '',
-    password: '',
-    database: '',
-    ssl: ''
+    host: 'localhost',
+    port: 3306,
+    user: 'user',
+    password: 'password',
+    database: 'powerfitness'
   }
 });
