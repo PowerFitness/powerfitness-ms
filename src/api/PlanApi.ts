@@ -18,6 +18,8 @@ export class PlanApi {
         res.send(plan)
       } catch (e) {
         console.log(e.message)
+        res.status(500);
+        res.end();
       }
     }
 }

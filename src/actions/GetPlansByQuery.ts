@@ -25,7 +25,7 @@ export class GetPlansByQuery extends ReadAction {
         id,
         userUniqueId
       } as PlansWhereMap;
-      return `select * from plans where ${buildWhereConditions(whereMap)}`
+      return `select * from plan where ${buildWhereConditions(whereMap)}`;
     }
 }
 

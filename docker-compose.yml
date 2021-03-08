@@ -3,7 +3,7 @@ services:
     volumes:
         - ./sql-scripts:/docker-entrypoint-initdb.d
     container_name: powerfitness_database
-    image: mysql
+    image: mysql:5.7
     ports:
         - "3306:3306"
     environment:
