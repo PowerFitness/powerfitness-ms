@@ -4,22 +4,22 @@ import GetResultsByQuery, { Result } from '../actions/GetResultsByQuery';
 import { config } from '../config';
 
 export class ResultsApi {
-    static route: string = '/results'
-    getRouter(): Router {
-      const router: Router = Router();
-      router.get('/', (...args) => this.getResults(...args))
-      return router;
-    }
+	static route: string = '/results'
+	getRouter(): Router {
+		const router: Router = Router();
+		router.get('/', (...args) => this.getResults(...args))
+		return router;
+	}
 
-    async getResults(req: Request, res: Response, next: NextFunction): Promise<void> {
-      try {
-        const query: ParsedQs = req.query;
-        const results: Array<Result> = await new GetResultsByQuery(config().dbConfig, query).execute();
-        res.send(results)
-      } catch (e) {
-        console.error(e.message)
-      }
-    }
+	async getResults(req: Request, res: Response, next: NextFunction): Promise<void> {
+		try {
+			const query: ParsedQs = req.query;
+			const results: Array<Result> = await new GetResultsByQuery(config().dbConfig, query).execute();
+			res.send(results)
+		} catch (e) {
+			console.error(e.message)
+		}
+	}
 }
 
 export default ResultsApi;
