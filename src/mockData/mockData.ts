@@ -1,10 +1,11 @@
+import { Plan } from '../types/Plan';
 
-export const plan: unknown = {
+export const plan: Plan = {
 	id: 1,
 	userUniqueId: '1234',
 	motivationStatement: 'This is my motivation statement',
 	createdDate: 'datetime',
-	updatedDate: 'datetime',
+	lastUpdatedDate: 'datetime',
 	goals: [
 		{
 			id: 1,

@@ -1,7 +1,7 @@
 import { Action } from '../abstraction/Action';
 import { ParsedQs } from 'qs';
-import { buildWhereConditions } from '../util/buildWhereConditions';
-import { DbConfig } from '../config'
+import { buildWhereAndConditions } from '../util/buildConditions';
+import DbProvider from '../abstraction/DbProvider';
 
 export interface Result {
 	id: number;
@@ -20,8 +20,8 @@ interface ResultsMap {userUniqueId?:string, date?:string}
 
 export class GetResultsByQuery extends Action<Array<Result>> {
 	queryParams: ParsedQs;
-	constructor(dbConfig: DbConfig, queryParams: ParsedQs) {
-		super(dbConfig);
+	constructor(dbProvider: DbProvider, queryParams: ParsedQs) {
+		super(dbProvider);
 		this.queryParams = queryParams;
 	}
 	buildQuery(): string {
@@ -30,7 +30,10 @@ export class GetResultsByQuery extends Action<Array<Result>> {
 			userUniqueId,
 			date
 		} as ResultsMap;
-		return `select * from result where ${buildWhereConditions(whereMap)}`
+		if (Object.keys(whereMap).length === 0) {
+			throw new Error('Missing criteria')
+		}
+		return `select * from result where ${buildWhereAndConditions(whereMap)}`
 	}
 }
 
