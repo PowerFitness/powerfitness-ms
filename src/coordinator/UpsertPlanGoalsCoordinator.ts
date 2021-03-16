@@ -31,7 +31,8 @@ export class UpsertPlanGoalsCoordinator {
 	async upsertData(): Promise<number> {
 		this.dbProvider.beginTransaction();
 
-		const upserPlanOkPacket: OkPacket = await new UpsertPlan(this.dbProvider, this.plan).execute();
+		const upsertPlanOkPacket: OkPacket = await new UpsertPlan(this.dbProvider, this.plan).execute();
+		const planId: number = upsertPlanOkPacket.insertId;
 
 		const goalIdsToDelete: Array<number> = await this._getGoalIdsToDelete();
 		if (goalIdsToDelete.length > 0) {
@@ -40,12 +41,13 @@ export class UpsertPlanGoalsCoordinator {
 
 		const { goals } = this.plan;
 		if (goals && goals.length > 0) {
+			goals.forEach(goal => goal.planId = planId)
 			await new UpsertBulkGoals(this.dbProvider, goals).execute();
 		}
 
 		this.dbProvider.commit();
 
-		return upserPlanOkPacket.insertId;
+		return upsertPlanOkPacket.insertId;
 	}
 }
 
