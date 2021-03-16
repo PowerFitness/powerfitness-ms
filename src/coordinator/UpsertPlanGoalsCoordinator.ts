@@ -39,7 +39,7 @@ export class UpsertPlanGoalsCoordinator {
 		}
 
 		const { goals } = this.plan;
-		if (goals) {
+		if (goals && goals.length > 0) {
 			await new UpsertBulkGoals(this.dbProvider, goals).execute();
 		}
 

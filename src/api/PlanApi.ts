@@ -34,6 +34,7 @@ export class PlanApi {
 			const planId: number = (await new UpsertPlanGoalsCoordinator(dbProvider, plan).upsertData());
 			res.send(planId.toString());
 		} catch (e) {
+			console.log(e.message)
 			res.status(500);
 			res.end();
 		}
