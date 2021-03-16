@@ -2,6 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { ParsedQs } from 'qs';
 import GetResultsByQuery, { Result } from '../actions/GetResultsByQuery';
 import { config } from '../config';
+import DbProvider from '../abstraction/DbProvider';
 
 export class ResultsApi {
 	static route: string = '/results'
@@ -13,8 +14,9 @@ export class ResultsApi {
 
 	async getResults(req: Request, res: Response, next: NextFunction): Promise<void> {
 		try {
+			const dbProvider: DbProvider = new DbProvider(config().dbConfig);
 			const query: ParsedQs = req.query;
-			const results: Array<Result> = await new GetResultsByQuery(config().dbConfig, query).execute();
+			const results: Array<Result> = await new GetResultsByQuery(dbProvider, query).execute();
 			res.send(results)
 		} catch (e) {
 			console.error(e.message)
