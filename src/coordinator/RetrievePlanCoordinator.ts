@@ -14,8 +14,12 @@ export class RetrievePlanCoordinator {
 		this.dbProvider = dbProvider;
 		this.queryParams = queryParams;
 	}
-	async retrieveData(): Promise<Plan> {
-		const planDetails: PlanDetails = (await new GetPlansByQuery(this.dbProvider, this.queryParams).execute())[0];
+	async retrieveData(): Promise<Plan | null> {
+		const planDetails: PlanDetails | undefined = (await new GetPlansByQuery(this.dbProvider, this.queryParams).execute())[0];
+		if (!planDetails) {
+			return null;
+		}
+
 		const goals: Array<Goal> = await new GetGoalsByPlanId(this.dbProvider, planDetails.id).execute();
 
 		return { ...planDetails, goals };

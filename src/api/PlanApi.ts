@@ -18,8 +18,12 @@ export class PlanApi {
 		try {
 			const dbProvider: DbProvider = new DbProvider(config().dbConfig);
 			const query: ParsedQs = req.query;
-			const plan: Plan = (await new RetrievePlanCoordinator(dbProvider, query).retrieveData());
-			res.send(plan)
+			const plan: Plan | null = (await new RetrievePlanCoordinator(dbProvider, query).retrieveData());
+			if (plan) {
+				res.send(plan)
+			} else {
+				res.send({});
+			}
 		} catch (e) {
 			console.log(e.message)
 			res.status(500);
