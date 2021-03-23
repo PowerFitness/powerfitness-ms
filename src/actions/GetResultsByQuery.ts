@@ -2,19 +2,7 @@ import { Action } from '../abstraction/Action';
 import { ParsedQs } from 'qs';
 import { buildWhereAndConditions } from '../util/buildConditions';
 import DbProvider from '../abstraction/DbProvider';
-
-export interface Result {
-	id: number;
-	userUniqueId: string;
-	date: string;
-	type: string;
-	subtype: string;
-	name: string;
-	unit: string;
-	value: number;
-	createdDate: string;
-	lastUpdatedDate: string;
-}
+import { Result } from '../types/Result'
 
 interface ResultsMap {userUniqueId?:string, date?:string}
 
