@@ -18,7 +18,8 @@ export class UpsertBulkGoals extends Action<OkPacket> {
 		${buildBulkInsertValues([ 'id', 'planId', 'type', 'name', 'unit', 'value', 'createdDate', 'lastUpdatedDate' ],
 		this.goalsList)}
 		on duplicate key update
-			type = VALUES(type), name = VALUES(name), unit = VALUES(unit), lastUpdatedDate = VALUES(lastUpdatedDate)`;
+			type = VALUES(type), name = VALUES(name), unit = VALUES(unit), 
+			value= VALUES(value), lastUpdatedDate = VALUES(lastUpdatedDate)`;
 	}
 }
 
