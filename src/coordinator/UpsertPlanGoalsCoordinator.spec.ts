@@ -1,7 +1,8 @@
 import { mock } from 'jest-mock-extended';
-import { UpsertPlanGoalsCoordinator, Plan } from './UpsertPlanGoalsCoordinator';
+import { UpsertPlanGoalsCoordinator } from './UpsertPlanGoalsCoordinator';
 import DbProvider from '../abstraction/DbProvider';
-import { Goal } from '../actions/GetGoalsByPlanId';
+import { Plan } from '../types/Plan';
+import { Goal } from '../types/Goal';
 import { OkPacket } from 'mysql';
 
 const mockGetGoalsByPlanIdExecute: jest.Mock<Promise<Array<Goal>>> = jest.fn();
@@ -86,7 +87,7 @@ describe('UpsertPlanGoalsCoordinator', () => {
 						unit: 'days',
 						value: 5,
 						createdDate: 'datetime',
-						updatedDate: 'datetime',
+						lastUpdatedDate: 'datetime',
 					},
 					{
 						id: 2,
@@ -96,7 +97,7 @@ describe('UpsertPlanGoalsCoordinator', () => {
 						unit: 'minutes',
 						value: 30,
 						createdDate: 'datetime',
-						updatedDate: 'datetime',
+						lastUpdatedDate: 'datetime',
 					},
 					// {
 					// 	id: 3,
@@ -106,7 +107,7 @@ describe('UpsertPlanGoalsCoordinator', () => {
 					// 	unit: 'ounces',
 					// 	value: 80,
 					// 	createdDate: 'datetime',
-					// 	updatedDate: 'datetime',
+					// 	lastUpdatedDate: 'datetime',
 					// },
 					{
 						id: 4,
@@ -116,7 +117,7 @@ describe('UpsertPlanGoalsCoordinator', () => {
 						unit: 'calories',
 						value: 2000,
 						createdDate: 'datetime',
-						updatedDate: 'datetime',
+						lastUpdatedDate: 'datetime',
 					}
 				]
 			};
@@ -130,7 +131,7 @@ describe('UpsertPlanGoalsCoordinator', () => {
 					unit: 'days',
 					value: 5,
 					createdDate: 'datetime',
-					updatedDate: 'datetime',
+					lastUpdatedDate: 'datetime',
 				},
 				// {
 				// 	id: 2,
@@ -140,7 +141,7 @@ describe('UpsertPlanGoalsCoordinator', () => {
 				// 	unit: 'minutes',
 				// 	value: 30,
 				// 	createdDate: 'datetime',
-				// 	updatedDate: 'datetime',
+				// 	lastUpdatedDate: 'datetime',
 				// },
 				{
 					id: 3,
@@ -150,7 +151,7 @@ describe('UpsertPlanGoalsCoordinator', () => {
 					unit: 'ounces',
 					value: 80,
 					createdDate: 'datetime',
-					updatedDate: 'datetime',
+					lastUpdatedDate: 'datetime',
 				},
 				{
 					id: 4,
@@ -160,7 +161,7 @@ describe('UpsertPlanGoalsCoordinator', () => {
 					unit: 'calories',
 					value: 2000,
 					createdDate: 'datetime',
-					updatedDate: 'datetime',
+					lastUpdatedDate: 'datetime',
 				}
 			] as Array<Goal>))
 			const coordinator: UpsertPlanGoalsCoordinator = new UpsertPlanGoalsCoordinator(mock<DbProvider>(), plan);
@@ -184,10 +185,10 @@ describe('UpsertPlanGoalsCoordinator', () => {
 						unit: 'days',
 						value: 5,
 						createdDate: 'datetime',
-						updatedDate: 'datetime',
+						lastUpdatedDate: 'datetime',
 					}
 				]
-			};
+			} as Plan;
 
 			mockGetGoalsByPlanIdExecute.mockImplementationOnce(() => Promise.reject('should not retrieve goals'));
 			const coordinator: UpsertPlanGoalsCoordinator = new UpsertPlanGoalsCoordinator(mock<DbProvider>(), plan);
@@ -215,7 +216,7 @@ describe('UpsertPlanGoalsCoordinator', () => {
 						unit: 'days',
 						value: 5,
 						createdDate: 'datetime',
-						updatedDate: 'datetime',
+						lastUpdatedDate: 'datetime',
 					},
 					{
 						id: 2,
@@ -225,7 +226,7 @@ describe('UpsertPlanGoalsCoordinator', () => {
 						unit: 'minutes',
 						value: 30,
 						createdDate: 'datetime',
-						updatedDate: 'datetime',
+						lastUpdatedDate: 'datetime',
 					},
 					// {
 					// 	id: 3,
@@ -235,7 +236,7 @@ describe('UpsertPlanGoalsCoordinator', () => {
 					// 	unit: 'ounces',
 					// 	value: 80,
 					// 	createdDate: 'datetime',
-					// 	updatedDate: 'datetime',
+					// 	lastUpdatedDate: 'datetime',
 					// },
 					{
 						id: 4,
@@ -245,7 +246,7 @@ describe('UpsertPlanGoalsCoordinator', () => {
 						unit: 'calories',
 						value: 2000,
 						createdDate: 'datetime',
-						updatedDate: 'datetime',
+						lastUpdatedDate: 'datetime',
 					}
 				]
 			};

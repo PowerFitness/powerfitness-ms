@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeleteBulkGoalsById buildQuery 1`] = `"delete from goal where id = 1 OR id = 2"`;

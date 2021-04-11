@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UpsertBulkGoals buildQuery 1`] = `
+"
+		insert into goal 
+			(id, planId, type, name, unit, value, createdDate, lastUpdatedDate)
+		values 
+		(1, 1, 'exercise', 'running', 'minutes', 30, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()), (2, 1, 'water', 'water', 'ounces', 80, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()), (3, 1, 'nutrition', 'pizza', 'calories', 200, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP())
+		on duplicate key update
+			type = VALUES(type), name = VALUES(name), unit = VALUES(unit), 
+			value= VALUES(value), lastUpdatedDate = VALUES(lastUpdatedDate)"
+`;

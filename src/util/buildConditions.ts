@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { escape, raw } from 'mysql'
+import { escape } from 'mysql'
 
 export const buildWhereAndConditions = (map: {[key: string]: any}): string => {
 	const conditions: Array<string> = [];

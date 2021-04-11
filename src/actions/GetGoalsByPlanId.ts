@@ -14,8 +14,8 @@ export interface Goal {
 }
 
 export class GetGoalsByPlanId extends Action<Array<Goal>> {
-	planId: number;
-	constructor(dbProvider: DbProvider, planId: number) {
+	planId: string;
+	constructor(dbProvider: DbProvider, planId: string) {
 		super(dbProvider);
 		this.planId = planId;
 	}

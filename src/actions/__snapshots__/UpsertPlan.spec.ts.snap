@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UpsertPlan buildQuery 1`] = `
+"insert into plan 
+					(id, userUniqueId, motivationStatement, createdDate, lastUpdatedDate)
+				values 
+					(
+						1, 
+						'uid', 
+						'To be healthy', 
+						CURRENT_TIMESTAMP(), 
+						CURRENT_TIMESTAMP()
+					)
+				on duplicate key update
+					motivationStatement = 'To be healthy', lastUpdatedDate = CURRENT_TIMESTAMP()"
+`;
