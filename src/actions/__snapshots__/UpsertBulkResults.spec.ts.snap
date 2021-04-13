@@ -3,9 +3,9 @@
 exports[`UpsertBulkResults buildQuery 1`] = `
 " 
 		insert into result
-			(id, userUniqueId, date, type, subtype, name, unit, value, createdDate, lastUpdatedDate )
+			(id, userUniqueId, date, type, subtype, name, unit, value, createdDate, lastUpdatedDate)
 		values
 		(1, 'uid', 'today', 'exercise', 'exercise', 'running', 'minutes', 30, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()), (2, 'uid', 'today', 'water', 'water', 'water', 'ounces', 80, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()), (3, 'uid', 'today', 'nutrition', 'dinner', 'pizza', 'calories', 200, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP())			
 		on duplicate key update
-			value = VALUES(value), lastUpdatedDate=VALUES(lastUpdatedDate)"
+			value= VALUES(value), lastUpdatedDate = VALUES(lastUpdatedDate)"
 `;

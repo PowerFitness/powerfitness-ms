@@ -16,4 +16,15 @@ describe('UpsertPlan', () => {
 		const action: UpsertPlan = new UpsertPlan(dbProvider, plan);
 		expect(action.buildQuery()).toMatchSnapshot();
 	})
+	test('buildQuery without id', () => {
+		const plan: Plan = {
+			userUniqueId: 'uid',
+			motivationStatement: 'To be healthy',
+			createdDate: 'date',
+			lastUpdatedDate: 'date'
+		} as Plan;
+		const dbProvider: DbProvider = mock<DbProvider>();
+		const action: UpsertPlan = new UpsertPlan(dbProvider, plan);
+		expect(action.buildQuery()).toMatchSnapshot();
+	})
 })

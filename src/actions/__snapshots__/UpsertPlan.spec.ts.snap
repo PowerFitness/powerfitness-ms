@@ -14,3 +14,18 @@ exports[`UpsertPlan buildQuery 1`] = `
 				on duplicate key update
 					motivationStatement = 'To be healthy', lastUpdatedDate = CURRENT_TIMESTAMP()"
 `;
+
+exports[`UpsertPlan buildQuery without id 1`] = `
+"insert into plan 
+					(id, userUniqueId, motivationStatement, createdDate, lastUpdatedDate)
+				values 
+					(
+						null, 
+						'uid', 
+						'To be healthy', 
+						CURRENT_TIMESTAMP(), 
+						CURRENT_TIMESTAMP()
+					)
+				on duplicate key update
+					motivationStatement = 'To be healthy', lastUpdatedDate = CURRENT_TIMESTAMP()"
+`;

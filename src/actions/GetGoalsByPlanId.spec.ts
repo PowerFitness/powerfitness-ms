@@ -5,12 +5,12 @@ import GetGoalsByPlanId from './GetGoalsByPlanId';
 describe('GetGoalsByPlanId', () => {
 	test('buildQuery', () => {
 		const dbProvider: DbProvider = mock<DbProvider>();
-		const action: GetGoalsByPlanId = new GetGoalsByPlanId(dbProvider, '1');
+		const action: GetGoalsByPlanId = new GetGoalsByPlanId(dbProvider, 1);
 		expect(action.buildQuery()).toMatchSnapshot();
 	})
 	test('buildQuery throws an error if no criteria', () => {
 		const dbProvider: DbProvider = mock<DbProvider>();
-		const action: GetGoalsByPlanId = new GetGoalsByPlanId(dbProvider, undefined as unknown as string);
-		expect(action.buildQuery).toThrowError()
+		const action: GetGoalsByPlanId = new GetGoalsByPlanId(dbProvider, undefined as unknown as number);
+		expect(() => action.buildQuery()).toThrowError('Missing criteria')
 	})
 })

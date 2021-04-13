@@ -11,6 +11,6 @@ describe('DeleteBulkGoalsById', () => {
 	test('buildQuery throws an error if no criteria', () => {
 		const dbProvider: DbProvider = mock<DbProvider>();
 		const action: DeleteBulkGoalsById = new DeleteBulkGoalsById(dbProvider, undefined as unknown as Array<number>);
-		expect(action.buildQuery).toThrowError()
+		expect(() => action.buildQuery()).toThrowError('Missing criteria')
 	})
 })

@@ -12,6 +12,6 @@ describe('GetPlansByQuery', () => {
 	test('buildQuery throws an error if no criteria', () => {
 		const dbProvider: DbProvider = mock<DbProvider>();
 		const action: GetPlansByQuery = new GetPlansByQuery(dbProvider, { });
-		expect(action.buildQuery).toThrowError()
+		expect(() => action.buildQuery()).toThrowError('Missing criteria')
 	})
 })
