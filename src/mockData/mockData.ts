@@ -15,7 +15,7 @@ export const plan: Plan = {
 			unit: 'days',
 			value: 5,
 			createdDate: 'datetime',
-			updatedDate: 'datetime',
+			lastUpdatedDate: 'datetime',
 		},
 		{
 			id: 2,
@@ -25,7 +25,7 @@ export const plan: Plan = {
 			unit: 'minutes',
 			value: 30,
 			createdDate: 'datetime',
-			updatedDate: 'datetime',
+			lastUpdatedDate: 'datetime',
 		},
 		{
 			id: 3,
@@ -35,7 +35,7 @@ export const plan: Plan = {
 			unit: 'ounces',
 			value: 80,
 			createdDate: 'datetime',
-			updatedDate: 'datetime',
+			lastUpdatedDate: 'datetime',
 		},
 		{
 			id: 4,
@@ -45,7 +45,7 @@ export const plan: Plan = {
 			unit: 'calories',
 			value: 2000,
 			createdDate: 'datetime',
-			updatedDate: 'datetime',
+			lastUpdatedDate: 'datetime',
 		}
 	]
 };
@@ -61,7 +61,7 @@ export const results: unknown = [
 		unit: 'minutes',
 		value: 180,
 		createdDate: 'datetime',
-		updatedDate: 'datetime'
+		lastUpdatedDate: 'datetime'
 	},
 	{
 		id: 2,
@@ -73,7 +73,7 @@ export const results: unknown = [
 		unit: 'minutes',
 		value: 30,
 		createdDate: 'datetime',
-		updatedDate: 'datetime'
+		lastUpdatedDate: 'datetime'
 	},
 	{
 		id: 3,
@@ -85,7 +85,7 @@ export const results: unknown = [
 		unit: 'ounces',
 		value: 30,
 		createdDate: 'datetime',
-		updatedDate: 'datetime'
+		lastUpdatedDate: 'datetime'
 	},
 	{
 		id: 4,
@@ -97,6 +97,6 @@ export const results: unknown = [
 		unit: 'calories',
 		value: 200,
 		createdDate: 'datetime',
-		updatedDate: 'datetime'
+		lastUpdatedDate: 'datetime'
 	}
 ];
