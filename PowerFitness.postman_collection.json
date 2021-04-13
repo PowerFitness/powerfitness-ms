@@ -1,0 +1,279 @@
+{
+	"info": {
+		"_postman_id": "0fe75d7f-0805-47fd-8297-13a991f75838",
+		"name": "PowerFitness",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get plan by userUniqueId",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3001/api/powerfitness/plan?userUniqueId={{userId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"powerfitness",
+						"plan"
+					],
+					"query": [
+						{
+							"key": "userUniqueId",
+							"value": "{{userId}}"
+						}
+					]
+				},
+				"description": "This endpoint queries the plan table by the following options: id, userUniqueId. For our purpose, we will use the query by userUniqueId publicly."
+			},
+			"response": []
+		},
+		{
+			"name": "Get plan by id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3001/api/powerfitness/plan?id={{id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"powerfitness",
+						"plan"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				},
+				"description": "This endpoint queries the plan table by the following options: id, userUniqueId. For our purpose, we will use the query by userUniqueId publicly."
+			},
+			"response": []
+		},
+		{
+			"name": "Get results by user and date",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/powerfitness/results?date={{date}}&userUniqueId={{userUniqueId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"powerfitness",
+						"results"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "{{date}}"
+						},
+						{
+							"key": "userUniqueId",
+							"value": "{{userUniqueId}}"
+						}
+					]
+				},
+				"description": "This endpoint upserts an array of results. It replaces the results at the specified resource /userId/date. If results do not have an id, it treats those as inserts. If results do have an id, it treats those as replacements."
+			},
+			"response": []
+		},
+		{
+			"name": "Create plan",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userUniqueId\": \"{{userUniqueId}}\",\n    \"motivationStatement\": \"To be healthy\",\n    \"goals\": [\n        {\n            \"type\": \"water\",\n            \"name\": \"dailyWater\",\n            \"unit\": \"ounces\",\n            \"value\": 70\n        },\n        {\n            \"type\": \"calories\",\n            \"name\": \"dailyCalories\",\n            \"unit\": \"calories\",\n            \"value\": 2000\n        },\n        {\n            \"type\": \"exercise\",\n            \"name\": \"dailyExercise\",\n            \"unit\": \"minutes\",\n            \"value\": 30\n        },\n        {\n            \"type\": \"exercise\",\n            \"name\": \"weeklyExercise\",\n            \"unit\": \"days\",\n            \"value\": 3\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/powerfitness/plan",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"powerfitness",
+						"plan"
+					]
+				},
+				"description": "Creates a plan which may have an array goals on it"
+			},
+			"response": []
+		},
+		{
+			"name": "Update plan",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": {{id}},\n    \"userUniqueId\": \"{{userUniqueId}}\",\n    \"motivationStatement\": \"To be healthy\",\n    \"goals\": [\n        {\n            \"id\": {{id}},\n            \"type\": \"water\",\n            \"name\": \"dailyWater\",\n            \"unit\": \"ounces\",\n            \"value\": 70\n        },\n        {\n            \"id\": {{id}},\n            \"type\": \"calories\",\n            \"name\": \"dailyCalories\",\n            \"unit\": \"calories\",\n            \"value\": 2000\n        },\n        {\n            \"id\": {{id}},\n            \"type\": \"exercise\",\n            \"name\": \"dailyExercise\",\n            \"unit\": \"minutes\",\n            \"value\": 30\n        },\n        {\n            \"id\": {{id}},\n            \"type\": \"exercise\",\n            \"name\": \"weeklyExercise\",\n            \"unit\": \"days\",\n            \"value\": 3\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/powerfitness/plan",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"powerfitness",
+						"plan"
+					]
+				},
+				"description": "Creates a plan which may have an array goals on it"
+			},
+			"response": []
+		},
+		{
+			"name": "Create results ",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n\t\t\"userUniqueId\": \"{{userUniqueId}}\",\n\t\t\"date\": \"2021-05-01\",\n\t\t\"type\": \"water\",\n\t\t\"subtype\": \"water\",\n\t\t\"name\": \"water\",\n\t\t\"unit\": \"ounces\",\n\t\t\"value\": 32\n\t},\n    {\n\t\t\"userUniqueId\": \"{{userUniqueId}}\",\n\t\t\"date\": \"2021-05-01\",\n\t\t\"type\": \"exercise\",\n\t\t\"subtype\": \"exercise\",\n\t\t\"name\": \"running\",\n\t\t\"unit\": \"minutes\",\n\t\t\"value\": 30\n\t},\n    {\n\t\t\"userUniqueId\": \"{{userUniqueId}}\",\n\t\t\"date\": \"2021-05-01\",\n\t\t\"type\": \"nutrition\",\n\t\t\"subtype\": \"breakfast\",\n\t\t\"name\": \"toast\",\n\t\t\"unit\": \"calories\",\n\t\t\"value\": 150\n\t},\n    {\n\t\t\"userUniqueId\": \"{{userUniqueId}}\",\n\t\t\"date\": \"2021-05-01\",\n\t\t\"type\": \"nutrition\",\n\t\t\"subtype\": \"dinner\",\n\t\t\"name\": \"chicken\",\n\t\t\"unit\": \"calories\",\n\t\t\"value\": 700\n\t}\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/powerfitness/results/{{userUniqueId}}/{{date}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"powerfitness",
+						"results",
+						"{{userUniqueId}}",
+						"{{date}}"
+					]
+				},
+				"description": "This endpoint upserts an array of results. It replaces the results at the specified resource /userId/date. If results do not have an id, it treats those as inserts. If results do have an id, it treats those as replacements."
+			},
+			"response": []
+		},
+		{
+			"name": "Update Results",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"id\": {{id}},\n\t\t\"userUniqueId\": \"{{userUniqueId}}\",\n\t\t\"date\": \"2021-05-01\",\n\t\t\"type\": \"water\",\n\t\t\"subtype\": \"water\",\n\t\t\"name\": \"water\",\n\t\t\"unit\": \"ounces\",\n\t\t\"value\": 32,\n\t\t\"createdDate\": \"YYYY-MM-DD\",\n\t\t\"lastUpdatedDate\": \"YYYY-MM-DD\"\n\t},\n    {\n        \"id\": {{id}},\n\t\t\"userUniqueId\": \"{{userUniqueId}}\",\n\t\t\"date\": \"2021-05-01\",\n\t\t\"type\": \"exercise\",\n\t\t\"subtype\": \"exercise\",\n\t\t\"name\": \"running\",\n\t\t\"unit\": \"minutes\",\n\t\t\"value\": 30,\n\t\t\"createdDate\": \"YYYY-MM-DD\",\n\t\t\"lastUpdatedDate\": \"YYYY-MM-DD\"\n\t},\n    {\n        \"id\": {{id}},\n\t\t\"userUniqueId\": \"{{userUniqueId}}\",\n\t\t\"date\": \"2021-05-01\",\n\t\t\"type\": \"nutrition\",\n\t\t\"subtype\": \"breakfast\",\n\t\t\"name\": \"toast\",\n\t\t\"unit\": \"calories\",\n\t\t\"value\": 150,\n\t\t\"createdDate\": \"YYYY-MM-DD\",\n\t\t\"lastUpdatedDate\": \"YYYY-MM-DD\"\n\t},\n    {\n        \"id\": {{id}},\n\t\t\"userUniqueId\": \"{{userUniqueId}}\",\n\t\t\"date\": \"2021-05-01\",\n\t\t\"type\": \"nutrition\",\n\t\t\"subtype\": \"dinner\",\n\t\t\"name\": \"chicken\",\n\t\t\"unit\": \"calories\",\n\t\t\"value\": 700,\n\t\t\"createdDate\": \"YYYY-MM-DD\",\n\t\t\"lastUpdatedDate\": \"YYYY-MM-DD\"\n\t}\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/powerfitness/results/{{userUniqueId}}/{{date}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"powerfitness",
+						"results",
+						"{{userUniqueId}}",
+						"{{date}}"
+					]
+				},
+				"description": "This endpoint upserts an array of results. It replaces the results at the specified resource /userId/date. If results do not have an id, it treats those as inserts. If results do have an id, it treats those as replacements."
+			},
+			"response": []
+		}
+	]
+}
