@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Logger _getErrorLogObject can handle when the stack is missing 1`] = `
+Object {
+  "message": "oops!",
+  "src": "",
+}
+`;
+
+exports[`Logger _getErrorLogObject dissects the Error object so that it can be logged 1`] = `
+Object {
+  "message": "oops!",
+  "src": "Error: oops!     at test.ts:1:1",
+}
+`;

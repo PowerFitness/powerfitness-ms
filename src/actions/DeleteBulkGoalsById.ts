@@ -5,7 +5,7 @@ import { buildWhereOrConditions } from '../util/buildConditions';
 
 export class DeleteBulkGoalsById extends Action<OkPacket> {
 	goalIds: Array<number>
-	constructor(dbProvider: DbProvider, goalIds: Array<number>) {
+	constructor(dbProvider: DbProvider, goalIds: Array<number> = []) {
 		super(dbProvider);
 		this.goalIds = goalIds;
 	}

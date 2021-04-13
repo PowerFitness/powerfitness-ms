@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GetPlansByQuery buildQuery 1`] = `"select * from plan where id = '1' AND userUniqueId = 'uid'"`;
