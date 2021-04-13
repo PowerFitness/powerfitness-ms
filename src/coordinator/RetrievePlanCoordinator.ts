@@ -1,6 +1,7 @@
 import DbProvider from '../abstraction/DbProvider';
 import GetPlansByQuery, { Plan as PlanDetails } from '../actions/GetPlansByQuery';
-import GetGoalsByPlanId, { Goal } from '../actions/GetGoalsByPlanId';
+import GetGoalsByPlanId from '../actions/GetGoalsByPlanId';
+import { Goal } from '../types/Goal';
 import { ParsedQs } from 'qs';
 
 export interface Plan extends PlanDetails {
