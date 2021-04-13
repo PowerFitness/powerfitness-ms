@@ -1,26 +1,46 @@
 import DbProvider from '../abstraction/DbProvider';
-import { OkPacket } from 'mysql';
 import { Result } from '../types/Result';
 import UpsertBulkResults from '../actions/UpsertBulkResults';
-
+import GetResultsByQuery from '../actions/GetResultsByQuery';
+import DeleteBulkResultsById from '../actions/DeleteBulkResultsById';
 
 export class UpsertResultsCoordinator {
 	dbProvider: DbProvider;
-	result: Result[];
-	constructor (dbProvider: DbProvider, result: Result[]) {
+	userUniqueId: string;
+	date: string;
+	results: Result[];
+	constructor (dbProvider: DbProvider, userUniqueId: string, date: string, results: Result[] = []) {
 		this.dbProvider = dbProvider;
-		this.result = result;
+		this.userUniqueId = userUniqueId;
+		this.date = date;
+		this.results = results;
 	}
 
-	async upsertData(): Promise<number> {
+	async _getResultIdsToDelete(): Promise<Array<number>> {
+		const existingResults: Array<Result> = await new GetResultsByQuery(
+			this.dbProvider, { date: this.date, userUniqueId: this.userUniqueId }
+		).execute();
+		const resultIds: Array<number> = existingResults.filter((existingResult) => {
+			return !this.results.find(function(result) {
+				return result.id === existingResult.id
+			})
+		}).map(result => result.id);
+		return resultIds;
+	}
+
+	async upsertData(): Promise<void> {
 		this.dbProvider.beginTransaction();
 
-		const upsertResultOkPacket: OkPacket = await new UpsertBulkResults(this.dbProvider, this.result).execute();
-		const resultId: number = upsertResultOkPacket.insertId;
+		const resultIdsToDelete: Array<number> = await this._getResultIdsToDelete();
+		if (resultIdsToDelete.length > 0) {
+			await new DeleteBulkResultsById(this.dbProvider, resultIdsToDelete).execute();
+		}
+
+		if (this.results.length > 0) {
+			await new UpsertBulkResults(this.dbProvider, this.results).execute();
+		}
 
 		this.dbProvider.commit();
-
-		return resultId;
 	}
 }
 
