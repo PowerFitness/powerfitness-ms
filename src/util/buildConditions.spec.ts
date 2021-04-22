@@ -35,6 +35,10 @@ describe('buildConditions', () => {
 		test('it builds a single OR conditions', () => {
 			expect(buildWhereOrConditions([ 1 ], 'id')).toEqual('id = 1')
 		});
+
+		test('returns empty string if no conditions', () => {
+			expect(buildWhereOrConditions([ ], '')).toEqual('')
+		});
 	});
 	describe('buildBulkUpsertValues', () => {
 		test('it builds bulk upsert values', () => {

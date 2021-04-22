@@ -1,20 +1,22 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router, Request, Response } from 'express';
 import { ParsedQs } from 'qs';
 import DbProvider from '../abstraction/DbProvider';
 import RetrievePlanCoordinator, { Plan } from '../coordinator/RetrievePlanCoordinator';
 import { config } from '../config';
 import UpsertPlanGoalsCoordinator from '../coordinator/UpsertPlanGoalsCoordinator';
+import loggerFactory, { Logger } from '../util/loggerFactory';
 
 export class PlanApi {
 	static route: string = '/plan'
 	getRouter(): Router {
 		const router: Router = Router();
-		router.get('/', (...args) => this.getPlan(...args))
-		router.put('/', (...args) => this.putPlan(...args))
+		router.get('/', this.getPlan.bind(this))
+		router.put('/', this.getPlan.bind(this))
 		return router;
 	}
 
-	async getPlan(req: Request, res: Response, next: NextFunction): Promise<void> {
+	async getPlan(req: Request, res: Response): Promise<void> {
+		const logger: Logger = loggerFactory(PlanApi.route, req);
 		try {
 			const dbProvider: DbProvider = new DbProvider(config().dbConfig);
 			const query: ParsedQs = req.query;
@@ -25,20 +27,21 @@ export class PlanApi {
 				res.send({});
 			}
 		} catch (e) {
-			console.log(e.message)
+			logger.error(e);
 			res.status(500);
 			res.end();
 		}
 	}
 
-	async putPlan(req: Request, res: Response, next: NextFunction): Promise<void> {
+	async putPlan(req: Request, res: Response): Promise<void> {
+		const logger: Logger = loggerFactory(PlanApi.route, req);
 		try {
 			const dbProvider: DbProvider = new DbProvider(config().dbConfig);
 			const plan: Plan = req.body;
 			const planId: number = (await new UpsertPlanGoalsCoordinator(dbProvider, plan).upsertData());
 			res.send(planId.toString());
 		} catch (e) {
-			console.error(e.message)
+			logger.error(e)
 			res.status(500);
 			res.end();
 		}

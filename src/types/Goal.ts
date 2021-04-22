@@ -6,5 +6,5 @@ export interface Goal {
     unit: string;
     value: number;
     createdDate: string;
-    updatedDate: string;
+    lastUpdatedDate: string;
 }

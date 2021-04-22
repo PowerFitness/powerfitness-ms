@@ -13,12 +13,12 @@ export class UpsertBulkResults extends Action<OkPacket> {
 	buildQuery(): string {
 		return ` 
 		insert into result
-			(id, userUniqueId, date, type, subtype, name, unit, value, createdDate, lastUpdatedDate )
+			(id, userUniqueId, date, type, subtype, name, unit, value, createdDate, lastUpdatedDate)
 		values
 		${buildBulkInsertValues([ 'id', 'userUniqueId', 'date', 'type', 'subtype', 'name', 'unit', 'value', 'createdDate', 'lastUpdatedDate' ],
 		this.results)}			
 		on duplicate key update
-			value = VALUES(value), lastUpdatedDate=VALUES(lastUpdatedDate)`
+			value= VALUES(value), lastUpdatedDate = VALUES(lastUpdatedDate)`
 	}
 }
 

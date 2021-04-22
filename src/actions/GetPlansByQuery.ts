@@ -21,13 +21,14 @@ export class GetPlansByQuery extends Action<Array<Plan>> {
 	}
 	buildQuery(): string {
 		const { id, userUniqueId } = this.queryParams;
+		if (Object.keys(this.queryParams).length === 0) {
+			throw new Error('Missing criteria')
+		}
 		const whereMap: PlansWhereMap = {
 			id,
 			userUniqueId
 		} as PlansWhereMap;
-		if (Object.keys(whereMap).length === 0) {
-			throw new Error('Missing criteria')
-		}
+
 		return `select * from plan where ${buildWhereAndConditions(whereMap)}`;
 	}
 }

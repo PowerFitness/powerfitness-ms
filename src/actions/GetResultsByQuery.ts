@@ -14,13 +14,14 @@ export class GetResultsByQuery extends Action<Array<Result>> {
 	}
 	buildQuery(): string {
 		const { userUniqueId, date } = this.queryParams;
+		if (Object.keys(this.queryParams).length === 0) {
+			throw new Error('Missing criteria')
+		}
 		const whereMap: ResultsMap = {
 			userUniqueId,
 			date
 		} as ResultsMap;
-		if (Object.keys(whereMap).length === 0) {
-			throw new Error('Missing criteria')
-		}
+
 		return `select * from result where ${buildWhereAndConditions(whereMap)}`
 	}
 }
