@@ -11,7 +11,7 @@ export class PlanApi {
 	getRouter(): Router {
 		const router: Router = Router();
 		router.get('/', this.getPlan.bind(this))
-		router.put('/', this.getPlan.bind(this))
+		router.put('/', this.putPlan.bind(this))
 		return router;
 	}
 
