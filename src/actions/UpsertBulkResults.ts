@@ -18,7 +18,7 @@ export class UpsertBulkResults extends Action<OkPacket> {
 		${buildBulkInsertValues([ 'id', 'userUniqueId', 'date', 'type', 'subtype', 'name', 'unit', 'value', 'createdDate', 'lastUpdatedDate' ],
 		this.results)}			
 		on duplicate key update
-			value= VALUES(value), lastUpdatedDate = VALUES(lastUpdatedDate)`
+			value= VALUES(value), name=VALUES(name), lastUpdatedDate = VALUES(lastUpdatedDate)`
 	}
 }
 

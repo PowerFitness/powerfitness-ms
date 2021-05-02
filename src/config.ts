@@ -5,6 +5,7 @@ export interface DbConfig {
     password: string;
     database?: string;
     ssl?: string;
+    dateStrings: boolean;
 }
 
 export interface Config {
@@ -16,6 +17,7 @@ export const config = (): Config => ({
 		port: 3306,
 		user: 'user',
 		password: 'password',
-		database: 'powerfitness'
+		database: 'powerfitness',
+		dateStrings: true
 	}
 });

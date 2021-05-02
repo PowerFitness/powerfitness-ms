@@ -37,7 +37,12 @@ export class UpsertResultsCoordinator {
 		}
 
 		if (this.results.length > 0) {
-			await new UpsertBulkResults(this.dbProvider, this.results).execute();
+			const newResultsArray: Result[] = this.results.map(result => ({
+				...result,
+				userUniqueId: this.userUniqueId,
+				date: this.date
+			}));
+			await new UpsertBulkResults(this.dbProvider, newResultsArray).execute();
 		}
 
 		this.dbProvider.commit();

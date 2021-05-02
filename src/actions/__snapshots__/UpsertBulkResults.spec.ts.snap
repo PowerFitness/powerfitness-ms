@@ -7,5 +7,5 @@ exports[`UpsertBulkResults buildQuery 1`] = `
 		values
 		(1, 'uid', 'today', 'exercise', 'exercise', 'running', 'minutes', 30, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()), (2, 'uid', 'today', 'water', 'water', 'water', 'ounces', 80, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()), (3, 'uid', 'today', 'nutrition', 'dinner', 'pizza', 'calories', 200, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP())			
 		on duplicate key update
-			value= VALUES(value), lastUpdatedDate = VALUES(lastUpdatedDate)"
+			value= VALUES(value), name=VALUES(name), lastUpdatedDate = VALUES(lastUpdatedDate)"
 `;
