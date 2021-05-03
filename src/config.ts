@@ -13,10 +13,10 @@ export interface Config {
 }
 export const config = (): Config => ({
 	dbConfig: {
-		host: 'localhost',
-		port: 3306,
-		user: 'user',
-		password: 'password',
+		host: process.env.MYSQL_HOST as string | undefined || 'localhost',
+		port: process.env.MYSQL_PORT ? parseInt(process.env.MYSQL_PORT) : 3306,
+		user: process.env.MYSQL_USER as string | undefined || 'user',
+		password: process.env.MYSQL_PASSWORD as string | undefined || 'password',
 		database: 'powerfitness',
 		dateStrings: true
 	}
