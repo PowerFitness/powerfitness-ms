@@ -21,7 +21,7 @@ const mockConfig: jest.Mock<Config> = jest.fn(() => ({
 		password: '',
 		database: ''
 	}
-}));
+})) as unknown as jest.Mock<Config>;
 jest.mock('../config', () => ({
 	config: () => mockConfig()
 }))

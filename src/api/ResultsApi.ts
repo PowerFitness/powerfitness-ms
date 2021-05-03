@@ -36,7 +36,7 @@ export class ResultsApi {
 			const dbProvider: DbProvider = new DbProvider(config().dbConfig);
 			const { userUniqueId, date } = req.params;
 			const results: Array<Result> = req.body;
-			if (results.length === 0 || !userUniqueId || !date ) {
+			if (!userUniqueId || !date ) {
 				throw new Error('Missing criteria');
 			}
 			await new UpsertResultsCoordinator(dbProvider, userUniqueId as string, date as string, results).upsertData();
