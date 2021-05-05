@@ -22,6 +22,7 @@ export class DbProvider {
 				} else {
 					resolve(results)
 				}
+				(this.connection as Connection).end()
 			})
 		}) as unknown as Promise<T>;
 	}
@@ -39,9 +40,12 @@ export class DbProvider {
 				this.rollback()
 					.then(() => reject(err))
 					.catch((rollbackError: MysqlError) =>
-						reject(new Error(`Rollback Failed: ${err.message} / ${rollbackError.message}`)));
+						reject(new Error(`Rollback Failed: ${err.message} / ${rollbackError.message}`)))
+					.finally(() =>
+						(this.connection as Connection).end())
 			} else {
 				resolve();
+				(this.connection as Connection).end()
 			}
 		}));
 	}
