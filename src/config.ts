@@ -9,8 +9,18 @@ export interface DbConfig {
 }
 
 export interface Config {
-    dbConfig: DbConfig
+    dbConfig: DbConfig,
+    adminCert: string | null
 }
+
+let adminCert: string | null = null;
+if (process.env.NODE_APP_INSTANCE === 'production') {
+	adminCert = '/Users/cjscholl/dev/power-fitness-309903-0cb72240573e.json'
+}
+if (process.env.NODE_APP_INSTANCE === 'localWithAuth') {
+	adminCert = '/Users/cjscholl/Desktop/dev/power-fitness-309903-0cb72240573e.json'
+}
+
 export const config = (): Config => ({
 	dbConfig: {
 		host: process.env.MYSQL_HOST as string | undefined || 'localhost',
@@ -19,5 +29,6 @@ export const config = (): Config => ({
 		password: process.env.MYSQL_PASSWORD as string | undefined || 'password',
 		database: 'powerfitness',
 		dateStrings: true
-	}
+	},
+	adminCert
 });

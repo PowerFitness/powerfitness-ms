@@ -5,6 +5,9 @@ import RetrievePlanCoordinator, { Plan } from '../coordinator/RetrievePlanCoordi
 import { config } from '../config';
 import UpsertPlanGoalsCoordinator from '../coordinator/UpsertPlanGoalsCoordinator';
 import loggerFactory, { Logger } from '../util/loggerFactory';
+import { validateToken } from '../util/validateToken';
+import { getToken } from '../util/getToken';
+import jwtDecode from 'jwt-decode';
 
 export class PlanApi {
 	static route: string = '/plan'
@@ -17,7 +20,15 @@ export class PlanApi {
 
 	async getPlan(req: Request, res: Response): Promise<void> {
 		const logger: Logger = loggerFactory(PlanApi.route, req);
+		const userUniqueId: string = req.query.userUniqueId as string;
 		try {
+			const token: string = getToken(req);
+			if (!await validateToken(token, logger)) {
+				throw new Error('Invalid Token');
+			}
+			const uid: string = jwtDecode<{user_id: string}>(token).user_id
+			if (uid !== userUniqueId) throw new Error('Not entitled for ' + userUniqueId)
+
 			const dbProvider: DbProvider = new DbProvider(config().dbConfig);
 			const query: ParsedQs = req.query;
 			const plan: Plan | null = (await new RetrievePlanCoordinator(dbProvider, query).retrieveData());
@@ -35,7 +46,15 @@ export class PlanApi {
 
 	async putPlan(req: Request, res: Response): Promise<void> {
 		const logger: Logger = loggerFactory(PlanApi.route, req);
+		const userUniqueId: string = req.body.userUniqueId as string;
 		try {
+			const token: string = getToken(req);
+			if (!await validateToken(token, logger)) {
+				throw new Error('Invalid Token');
+			}
+			const uid: string = jwtDecode<{user_id: string}>(token).user_id
+			if (uid !== userUniqueId) throw new Error('Not entitled for ' + userUniqueId)
+
 			const dbProvider: DbProvider = new DbProvider(config().dbConfig);
 			const plan: Plan = req.body;
 			const planId: number = (await new UpsertPlanGoalsCoordinator(dbProvider, plan).upsertData());

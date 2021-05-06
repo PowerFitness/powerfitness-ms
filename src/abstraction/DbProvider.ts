@@ -4,6 +4,7 @@ import { createConnection, Connection, MysqlError } from 'mysql';
 export class DbProvider {
 	dbConfig: DbConfig;
 	connection: Connection | null = null;
+	inTransaction: boolean = false;
 	constructor(dbConfig: DbConfig) {
 		this.dbConfig = dbConfig;
 	}
@@ -22,30 +23,31 @@ export class DbProvider {
 				} else {
 					resolve(results)
 				}
-				(this.connection as Connection).end()
+				this.end();
 			})
 		}) as unknown as Promise<T>;
 	}
 
 	beginTransaction(): Promise<void> {
 		this.establishConnection();
+		this.inTransaction = true;
 		return new Promise((resolve, reject) =>
 			(this.connection as Connection).beginTransaction((err: MysqlError) => err ? reject(err) : resolve()));
 	}
 
 	commit(): Promise<void> {
 		this.establishConnection();
+		this.inTransaction = false;
 		return new Promise((resolve, reject) => (this.connection as Connection).commit((err: MysqlError) => {
 			if (err) {
 				this.rollback()
 					.then(() => reject(err))
 					.catch((rollbackError: MysqlError) =>
 						reject(new Error(`Rollback Failed: ${err.message} / ${rollbackError.message}`)))
-					.finally(() =>
-						(this.connection as Connection).end())
+					.finally(() => this.end());
 			} else {
 				resolve();
-				(this.connection as Connection).end()
+				this.end()
 			}
 		}));
 	}
@@ -53,6 +55,13 @@ export class DbProvider {
 	rollback(): Promise<void> {
 		return new Promise((resolve, reject) =>
 			(this.connection as Connection).rollback((err: MysqlError) => err ? reject(err) : resolve()));
+	}
+
+	end(): void {
+		if (!this.inTransaction) {
+			(this.connection as Connection).end()
+			this.connection = null;
+		}
 	}
 }
 

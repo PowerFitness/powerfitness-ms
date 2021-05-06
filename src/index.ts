@@ -1,5 +1,4 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
-import bodyParser from 'body-parser';
 import PlanApi from './api/PlanApi';
 import ResultsApi from './api/ResultsApi';
 
@@ -11,7 +10,7 @@ app.listen(port, () => {
 	console.log(`PowerFitness-ms listening at http://localhost:${port}`)
 })
 
-app.use(bodyParser.json())
+app.use(express.json());
 
 app.use((req: Request, res: Response, next: NextFunction) => {
 	console.info(req.originalUrl);
