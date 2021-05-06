@@ -15,7 +15,7 @@ export interface Config {
 
 let adminCert: string | null = null;
 if (process.env.NODE_APP_INSTANCE === 'production') {
-	adminCert = '/Users/cjscholl/dev/power-fitness-309903-0cb72240573e.json'
+	adminCert = '/usr/src/firebase-cert/power-fitness-309903-0cb72240573e.json'
 }
 if (process.env.NODE_APP_INSTANCE === 'localWithAuth') {
 	adminCert = '/Users/cjscholl/Desktop/dev/power-fitness-309903-0cb72240573e.json'
