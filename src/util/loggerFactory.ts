@@ -39,7 +39,7 @@ export class Logger {
 	}
 
 	_logByMethod(method: 'info' | 'debug' | 'error', errorOrLogObject: LogObject | Error, logObject?: LogObject): boolean | void {
-		if (errorOrLogObject.constructor === Error) {
+		if (errorOrLogObject.constructor === Error || errorOrLogObject.constructor.toString().includes('Error')) {
 			const errorLogObject: LogObject = Logger._getErrorLogObject(errorOrLogObject as Error);
 			if (logObject) {
 				return this.log[method](this._addExtraRequestInfo({ ...logObject, ...errorLogObject }))

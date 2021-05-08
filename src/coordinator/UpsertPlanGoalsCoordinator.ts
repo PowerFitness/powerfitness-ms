@@ -29,25 +29,30 @@ export class UpsertPlanGoalsCoordinator {
 		}
 	}
 	async upsertData(): Promise<number> {
-		this.dbProvider.beginTransaction();
+		try {
+			this.dbProvider.beginTransaction();
 
-		const upsertPlanOkPacket: OkPacket = await new UpsertPlan(this.dbProvider, this.plan).execute();
-		const planId: number = upsertPlanOkPacket.insertId;
+			const upsertPlanOkPacket: OkPacket = await new UpsertPlan(this.dbProvider, this.plan).execute();
+			const planId: number = upsertPlanOkPacket.insertId;
 
-		const goalIdsToDelete: Array<number> = await this._getGoalIdsToDelete();
-		if (goalIdsToDelete.length > 0) {
-			await new DeleteBulkGoalsById(this.dbProvider, goalIdsToDelete).execute();
+			const goalIdsToDelete: Array<number> = await this._getGoalIdsToDelete();
+			if (goalIdsToDelete.length > 0) {
+				await new DeleteBulkGoalsById(this.dbProvider, goalIdsToDelete).execute();
+			}
+
+			const { goals } = this.plan;
+			if (goals && goals.length > 0) {
+				goals.forEach(goal => goal.planId = planId)
+				await new UpsertBulkGoals(this.dbProvider, goals).execute();
+			}
+
+			this.dbProvider.commit();
+
+			return upsertPlanOkPacket.insertId;
+		} catch (e) {
+			this.dbProvider.rollback();
+			throw e;
 		}
-
-		const { goals } = this.plan;
-		if (goals && goals.length > 0) {
-			goals.forEach(goal => goal.planId = planId)
-			await new UpsertBulkGoals(this.dbProvider, goals).execute();
-		}
-
-		this.dbProvider.commit();
-
-		return upsertPlanOkPacket.insertId;
 	}
 }
 

@@ -72,6 +72,13 @@ jest.mock('../coordinator/UpsertResultsCoordinator', () => ({
 	__esModule: true
 }));
 
+jest.mock('jwt-decode', () => ({
+	default: () => ({
+		user_id: 'testUserUniqueId'
+	}),
+	__esModule: true
+}))
+
 const mockResults: Array<Result> = [ {
 	id: 1,
 	userUniqueId: 'testUserUniqueId',
@@ -96,7 +103,12 @@ describe('ResultsApi', () => {
 	});
 	describe('getResults', () => {
 		it('uses GetResultsByQuery', async () => {
-			const req: Request = { query: {} } as unknown as Request;
+			const req: Request = { query: { userUniqueId: 'testUserUniqueId' }, get: (header: string) => {
+				switch(header) {
+				case 'Authorization':
+					return 'Bearer token'
+				}
+			} } as unknown as Request;
 			const res: Response = { send: jest.fn(), status: jest.fn(), end: jest.fn() } as unknown as Response;
 			const api: ResultsApi = new ResultsApi();
 			mockGetResultsByQueryExecute.mockImplementationOnce(() => Promise.resolve(mockResults));
@@ -107,7 +119,12 @@ describe('ResultsApi', () => {
 			expect(res.send).toHaveBeenCalledWith(mockResults);
 		});
 		it('catches errors and responds 500', async () => {
-			const req: Request = { query: {} } as unknown as Request;
+			const req: Request = { query: { userUniqueId: 'testUserUniqueId' }, get: (header: string) => {
+				switch(header) {
+				case 'Authorization':
+					return 'Bearer token'
+				}
+			} } as unknown as Request;
 			const res: Response = { send: jest.fn(), status: jest.fn(), end: jest.fn() } as unknown as Response;
 			const api: ResultsApi = new ResultsApi();
 			const error: Error = new Error('oops!');
@@ -125,7 +142,13 @@ describe('ResultsApi', () => {
 			mockUpsertResultsCoordinator.mockReset();
 		})
 		it('checks that userUniqueId path is set', async () => {
-			const req: Request = { params: { date: '2020-01-01' }, body: mockResults } as unknown as Request;
+			const req: Request = { params: { date: '2020-01-01' }, body: mockResults,
+				get: (header: string) => {
+					switch(header) {
+					case 'Authorization':
+						return 'Bearer token'
+					}
+				} } as unknown as Request;
 			const res: Response = { status: jest.fn(), end: jest.fn() } as unknown as Response;
 			const api: ResultsApi = new ResultsApi();
 			mockUpsertResultsCoordinator.mockImplementationOnce(() => Promise.resolve());
@@ -136,7 +159,12 @@ describe('ResultsApi', () => {
 			expect(res.end).toHaveBeenCalled();
 		});
 		it('checks that date path is set', async () => {
-			const req: Request = { params: { userUniqueId: 'testUserUniqueId' }, body: mockResults } as unknown as Request;
+			const req: Request = { params: { userUniqueId: 'testUserUniqueId' }, body: mockResults, get: (header: string) => {
+				switch(header) {
+				case 'Authorization':
+					return 'Bearer token'
+				}
+			} } as unknown as Request;
 			const res: Response = { status: jest.fn(), end: jest.fn() } as unknown as Response;
 			const api: ResultsApi = new ResultsApi();
 			mockUpsertResultsCoordinator.mockImplementationOnce(() => Promise.resolve());
@@ -149,7 +177,13 @@ describe('ResultsApi', () => {
 		it('uses the UpsertResultsCoordinator', async () => {
 			const req: Request = {
 				params: { userUniqueId: 'testUserUniqueId', date: '2020-01-01' },
-				body: mockResults
+				body: mockResults,
+				get: (header: string) => {
+					switch(header) {
+					case 'Authorization':
+						return 'Bearer token'
+					}
+				}
 			} as unknown as Request;
 			const res: Response = { status: jest.fn(), end: jest.fn() } as unknown as Response;
 			const api: ResultsApi = new ResultsApi();
@@ -163,7 +197,12 @@ describe('ResultsApi', () => {
 		it('catches errors and responds 500', async () => {
 			const req: Request = {
 				params: { userUniqueId: 'testUserUniqueId',
-					date: '2020-01-01' }, body: mockResults
+					date: '2020-01-01' }, body: mockResults, get: (header: string) => {
+					switch(header) {
+					case 'Authorization':
+						return 'Bearer token'
+					}
+				}
 			} as unknown as Request;
 			const res: Response = { status: jest.fn(), end: jest.fn() } as unknown as Response;
 			const api: ResultsApi = new ResultsApi();

@@ -29,23 +29,28 @@ export class UpsertResultsCoordinator {
 	}
 
 	async upsertData(): Promise<void> {
-		this.dbProvider.beginTransaction();
+		try {
+			this.dbProvider.beginTransaction();
 
-		const resultIdsToDelete: Array<number> = await this._getResultIdsToDelete();
-		if (resultIdsToDelete.length > 0) {
-			await new DeleteBulkResultsById(this.dbProvider, resultIdsToDelete).execute();
+			const resultIdsToDelete: Array<number> = await this._getResultIdsToDelete();
+			if (resultIdsToDelete.length > 0) {
+				await new DeleteBulkResultsById(this.dbProvider, resultIdsToDelete).execute();
+			}
+
+			if (this.results.length > 0) {
+				const newResultsArray: Result[] = this.results.map(result => ({
+					...result,
+					userUniqueId: this.userUniqueId,
+					date: this.date
+				}));
+				await new UpsertBulkResults(this.dbProvider, newResultsArray).execute();
+			}
+
+			this.dbProvider.commit();
+		} catch (e) {
+			this.dbProvider.rollback();
+			throw e;
 		}
-
-		if (this.results.length > 0) {
-			const newResultsArray: Result[] = this.results.map(result => ({
-				...result,
-				userUniqueId: this.userUniqueId,
-				date: this.date
-			}));
-			await new UpsertBulkResults(this.dbProvider, newResultsArray).execute();
-		}
-
-		this.dbProvider.commit();
 	}
 }
 

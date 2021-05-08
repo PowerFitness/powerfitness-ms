@@ -69,6 +69,13 @@ jest.mock('../coordinator/UpsertPlanGoalsCoordinator', () => ({
 	__esModule: true
 }))
 
+jest.mock('jwt-decode', () => ({
+	default: () => ({
+		user_id: 'testUserUniqueId'
+	}),
+	__esModule: true
+}))
+
 const mockPlan: Plan = {
 	id: 1,
 	userUniqueId: 'testUserUniqueId',
@@ -98,7 +105,12 @@ describe('PlanApi', () => {
 	describe('getPlan', () => {
 		it('uses the RetrievaPlanCoordinator', async () => {
 			const planApi: PlanApi = new PlanApi();
-			const req: Request = { query: {} } as unknown as Request;
+			const req: Request = { query: { userUniqueId: 'testUserUniqueId' }, get: (header: string) => {
+				switch(header) {
+				case 'Authorization':
+					return 'Bearer token'
+				}
+			} } as unknown as Request;
 			const res: Response = { send: jest.fn(), status: jest.fn(), end: jest.fn() } as unknown as Response;
 			mockRetrieveData.mockImplementationOnce(() => Promise.resolve(mockPlan));
 
@@ -109,7 +121,12 @@ describe('PlanApi', () => {
 		});
 		it('responds with an empty object when not found', async () => {
 			const planApi: PlanApi = new PlanApi();
-			const req: Request = { query: {} } as unknown as Request;
+			const req: Request = { query: { userUniqueId: 'testUserUniqueId'  }, get: (header: string) => {
+				switch(header) {
+				case 'Authorization':
+					return 'Bearer token'
+				}
+			} } as unknown as Request;
 			const res: Response = { send: jest.fn(), status: jest.fn(), end: jest.fn() } as unknown as Response;
 			mockRetrieveData.mockImplementationOnce(() => Promise.resolve(null));
 
@@ -120,7 +137,12 @@ describe('PlanApi', () => {
 		});
 		it('catches errors and responds 500', async () => {
 			const planApi: PlanApi = new PlanApi();
-			const req: Request = { query: {} } as unknown as Request;
+			const req: Request = { query: { userUniqueId: 'testUserUniqueId' }, get: (header: string) => {
+				switch(header) {
+				case 'Authorization':
+					return 'Bearer token'
+				}
+			} } as unknown as Request;
 			const res: Response = { send: jest.fn(), status: jest.fn(), end: jest.fn() } as unknown as Response;
 			const error: Error = new Error('oops!');
 			mockRetrieveData.mockImplementationOnce(() => Promise.reject(error));
@@ -134,7 +156,12 @@ describe('PlanApi', () => {
 	});
 	describe('putPlan', () => {
 		it('uses the UpsertPlanGoalsCoordinator', async () => {
-			const req: Request = { body: mockPlan } as unknown as Request;
+			const req: Request = { body: mockPlan, get: (header: string) => {
+				switch(header) {
+				case 'Authorization':
+					return 'Bearer token'
+				}
+			} } as unknown as Request;
 			const res: Response = { send: jest.fn(), status: jest.fn(), end: jest.fn() } as unknown as Response;
 			const planApi: PlanApi = new PlanApi();
 			mockUpsertData.mockImplementationOnce(() => Promise.resolve(1))
@@ -145,7 +172,12 @@ describe('PlanApi', () => {
 			expect(res.send).toHaveBeenCalledWith('1');
 		});
 		it('catches errors and responds 500', async () => {
-			const req: Request = { body: mockPlan } as unknown as Request;
+			const req: Request = { body: mockPlan, get: (header: string) => {
+				switch(header) {
+				case 'Authorization':
+					return 'Bearer token'
+				}
+			} } as unknown as Request;
 			const res: Response = { send: jest.fn(), status: jest.fn(), end: jest.fn() } as unknown as Response;
 			const planApi: PlanApi = new PlanApi();
 			const error: Error = new Error('oops!');

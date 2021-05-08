@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import loggerFactory, { Logger, LogObject } from './loggerFactory';
-import Bunyan, { createLogger } from 'bunyan';
+import Bunyan from 'bunyan';
 
 const mockInfo: jest.Mock<void> = jest.fn();
 const mockError: jest.Mock<void> = jest.fn();

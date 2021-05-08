@@ -53,8 +53,20 @@ export class DbProvider {
 	}
 
 	rollback(): Promise<void> {
-		return new Promise((resolve, reject) =>
-			(this.connection as Connection).rollback((err: MysqlError) => err ? reject(err) : resolve()));
+		if (this.inTransaction) {
+			return new Promise((resolve, reject) =>{
+				(this.connection as Connection).rollback((err: MysqlError) => {
+					this.inTransaction = false;
+					(this.connection as Connection).end();
+					if (err) {
+						reject(err)
+					} else {
+						resolve();
+					}
+				})
+			})
+		}
+		return Promise.resolve();
 	}
 
 	end(): void {
